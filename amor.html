@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Quanto me ama?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    background: linear-gradient(to bottom, #0b0c2a, #1e1e3f);
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    text-align: center;
+  }
+  .container {
+    padding: 50px 20px;
+  }
+  h1 {
+    margin-bottom: 40px;
+  }
+  #love-btn {
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  #love-level {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #ff69b4;
+  }
+  .progress-bar-bg {
+    width: 80%;
+    height: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: #ff69b4;
+    border-radius: 10px 0 0 10px;
+    transition: width 0.3s ease;
+  }
+  .heart-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 3s ease forwards;
+  }
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-150px) scale(1.5);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>O quanto me ama?</h1>
+  <div id="love-btn" role="button" tabindex="0" aria-label="Clique para mostrar amor">❤️</div>
+  <div id="love-level">Nível de amor: 0%</div>
+  <div class="progress-bar-bg" aria-label="Barra de progresso do amor">
+    <div class="progress-bar-fill" id="progress-bar"></div>
+  </div>
+</div>
+
+<div class="heart-container" id="heart-container"></div>
+
+<script>
+  let lovePercent = 0;
+  const maxPercent = 100;
+  const increment = 10;
+
+  const loveBtn = document.getElementById('love-btn');
+  const loveLevel = document.getElementById('love-level');
+  const progressBar = document.getElementById('progress-bar');
+  const heartContainer = document.getElementById('heart-container');
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = Math.random() > 0.5 ? '❤️' : '🤍';
+    heart.style.left = Math.random() * 100 + 'px';
+    heartContainer.appendChild(heart);
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }
+
+  function increaseLove() {
+    if(lovePercent < maxPercent) {
+      lovePercent += increment;
+      if(lovePercent > maxPercent) lovePercent = maxPercent;
+      loveLevel.textContent = `Nível de amor: ${lovePercent}%`;
+      progressBar.style.width = `${lovePercent}%`;
+      createHeart();
+      if(lovePercent === maxPercent) {
+        setTimeout(() => {
+          window.location.href = 'quiz.html';
+        }, 1500);
+      }
+    }
+  }
+
+  loveBtn.addEventListener('click', increaseLove);
+  loveBtn.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      increaseLove();
+    }
+  });
+</script>
+</body>
+</html>
