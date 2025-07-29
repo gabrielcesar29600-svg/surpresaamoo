@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Parabéns, meu amor!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    background: linear-gradient(to bottom, #1a1a2e, #16213e);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    text-align: center;
+  }
+  h1 {
+    color: #ff69b4;
+    margin-bottom: 15px;
+  }
+  .photos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  .photos img {
+    max-width: 150px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ff69b4;
+  }
+  .timer {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #ffb6c1;
+  }
+  .text-fofo {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 105, 180, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Parabéns, meu amor!</h1>
+
+<div class="photos">
+  <img src="https://photos.app.goo.gl/EQWVZZky9eSPYCB9A" alt="Foto 1" />
+  <img src="https://photos.app.goo.gl/MPQoGwAiE6CWWr4KA" alt="Foto 2" />
+  <img src="https://photos.app.goo.gl/AzN4b5KapWVMrWQB8" alt="Foto 3" />
+  <img src="https://photos.app.goo.gl/ZckdWnnuMV75Tr8E9" alt="Foto 4" />
+  <img src="https://photos.app.goo.gl/XaTo7FpbD9RBpfGcA" alt="Foto 5" />
+  <img src="https://photos.app.goo.gl/sGJ3SUoRVB34yh1TA" alt="Foto 6" />
+</div>
+
+<div class="timer" id="timer">
+  Tempo juntos: 0 meses, 0 dias, 0 horas, 0 minutos, 0 segundos
+</div>
+
+<div class="text-fofo" id="text-fofo">
+  só quero agradecer por tudo, para o meu inesperado mais esperado, tão rápido mas parece que te amei por uma vida inteira. Vc foi a melhor coisa que poderia ter acontecido comigo. Obrigado por ser essa pessoa maravilhosa.<br><br>
+
+  Quero isso fique para sempre recordado para que você nunca esqueça o quanto eu te amo e o quanto eu sou feliz de ter você ao meu lado. Em meio a tanto caos e confusão você é meu refúgio, com todos os nossos desentendimentos, me perdoa por as te deixar com inseguranças e medos, talvez seja porque pegamos intimidade e ficamos mais a vontade para falar o que gostamos ou não e para fazer mais cobranças, a verdade é que nunca me senti tão amado e tão a vontade assim com um pessoa, então as vezes eu não sei lidar. Por isso te peço paciência comigo, porque quero aprender a te amar, quero evoluir com você, como pessoa, como casal e algum dia como os pais que nossos filhos merecem.<br><br>
+
+  Você diz que eu não te elogio, talvez porque eu era acostumado a só te esculachar devido a nossa amizade, mas cada vez que te vejo é como uma chama em meu coração, a cada momento, a cada risada, a cada conversa, sinto como se fosse a primeira vez. Toda vez que te levo para sua casa e vou embora, sinto como se estivesse dado o meu primeiro beijo, indo embora saltitando e deixando aquele menino inocente e bobo tomar conta.<br><br>
+
+  Não sou de criar expectativas com quase nada e nem de sonhar tão alto, mas com você parece que tudo se torna possível, você é a minha única certeza, mesmo com todos os obstáculos, não importa o quão alto eles forem, quero passar eles com você, com a futura mãe dos meus filhos, a menina que está em todas as minhas orações.<br><br>
+
+  Temos tantas opiniões diferentes, tantos gostos, mas no fim, não é sobre ser igual.<br>
+  É sobre encaixar mesmo sendo tão diferente.<br>
+  É sobre se olhar e, mesmo sem entender tudo, sentir que ali tem algo certo.<br>
+  Talvez seja isso o tal “os opostos se atraem”<br>
+  não porque são opostos, mas porque, de algum jeito, completam o que o outro nem sabia que faltava. Eu te amo muitãoooo.
+</div>
+
+<script>
+  // Data do início do relacionamento (exemplo: 1 de janeiro de 2023)
+  const startDate = new Date('2023-01-01T00:00:00');
+
+  function updateTimer() {
+    const now = new Date();
+    let diff = now - startDate;
+
+    const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+    diff -= months * (1000 * 60 * 60 * 24 * 30);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * (1000 * 60);
+
+    const seconds = Math.floor(diff / 1000);
+
+    document.getElementById('timer').textContent = `Tempo juntos: ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+  }
+
+  setInterval(updateTimer, 1000);
+  updateTimer();
+</script>
+
+</body>
+</html>
