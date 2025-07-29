@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Quiz sobre noize🫶🏻</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    background: linear-gradient(to bottom, #1a1a2e, #16213e);
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 30px;
+    color: #ff69b4;
+  }
+  .start-btn {
+    background-color: #ff69b4;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .start-btn:hover {
+    background-color: #e055a1;
+  }
+  .question-container {
+    margin-top: 30px;
+  }
+  .question {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  .answers {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .answer {
+    background-color: #555;
+    padding: 12px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  .answer.correct {
+    background-color: #28a745; /* verde */
+  }
+  .answer.incorrect {
+    background-color: #dc3545; /* vermelho */
+  }
+  .answer.disabled {
+    pointer-events: none;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>quiz sobre noize🫶🏻</h1>
+<button class="start-btn" id="start-btn">clique para começar</button>
+
+<div class="question-container hidden" id="quiz-container">
+  <div class="question" id="question-text"></div>
+  <div class="answers" id="answers-container"></div>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "E do nosso príncipe??",
+      answers: [
+        { text: "Noah", correct: true },
+        { text: "Jhonatan", correct: false },
+        { text: "Vitor", correct: false },
+        { text: "Luan", correct: false },
+      ]
+    },
+    {
+      question: "Onde foi nosso primeiro beijo?",
+      answers: [
+        { text: "Cinema", correct: true },
+        { text: "Restaurante", correct: false },
+        { text: "Praça", correct: false },
+        { text: "Shopping", correct: false },
+      ]
+    },
+    {
+      question: "Qual nosso momento mais especial??",
+      answers: [
+        { text: "Cinema", correct: false },
+        { text: "Nosso primeiro eu te amo", correct: false },
+        { text: "quando te dei um presente", correct: false },
+        { text: "todas acima", correct: true },
+      ]
+    },
+    {
+      question: "Qual o nome da nossa futura princesa??",
+      answers: [
+        { text: "Gabrielle", correct: false },
+        { text: "Cecília", correct: false },
+        { text: "Vanessa", correct: false },
+        { text: "Stella", correct: true },
+      ]
+    }
+  ];
+
+  const startBtn = document.getElementById('start-btn');
+  const quizContainer = document.getElementById('quiz-container');
+  const questionText = document.getElementById('question-text');
+  const answersContainer = document.getElementById('answers-container');
+
+  let currentQuestionIndex = 0;
+
+  startBtn.addEventListener('click', startQuiz);
+
+  function startQuiz() {
+    startBtn.classList.add('hidden');
+    quizContainer.classList.remove('hidden');
+    currentQuestionIndex = 0;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    clearAnswers();
+    const currentQuestion = questions[currentQuestionIndex];
+    questionText.textContent = currentQuestion.question;
+
+    currentQuestion.answers.forEach((answer, idx) => {
+      const button = document.createElement('button');
+      button.classList.add('answer');
+      button.textContent = answer.text;
+      button.addEventListener('click', () => selectAnswer(button, answer.correct));
+      answersContainer.appendChild(button);
+    });
+  }
+
+  function clearAnswers() {
+    while(answersContainer.firstChild) {
+      answersContainer.removeChild(answersContainer.firstChild);
+    }
+  }
+
+  function selectAnswer(button, correct) {
+    // Desabilitar todos os botões após clique
+    const buttons = answersContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.disabled = true;
+    });
+
+    if(correct) {
+      button.classList.add('correct');
+      setTimeout(() => {
+        currentQuestionIndex++;
+        if(currentQuestionIndex < questions.length) {
+          showQuestion();
+        } else {
+          showCongrats();
+        }
+      }, 1000);
+    } else {
+      button.classList.add('incorrect');
+      button.disabled = false;
+      button.classList.remove('disabled');
+    }
+  }
+
+  function showCongrats() {
+    quizContainer.innerHTML = `
+      <h2>Parabéns minha princesa!!</h2>
+      <p>Você respondeu tudo certinho❤️!</p>
+      <div id="hearts-container" style="position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); pointer-events: none;"></div>
+    `;
+    launchHearts();
+  }
+
+  function launchHearts() {
+    const container = document.getElementById('hearts-container');
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.textContent = Math.random() > 0.5 ? '❤️' : '🤍';
+      heart.style.position = 'absolute';
+      heart.style.bottom = '0px';
+      heart.style.left = (Math.random() * 200) + 'px';
+      heart.style.fontSize = '24px';
+      heart.style.animation = 'floatUp 3s ease forwards';
+      container.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }, 300);
+  }
+</script>
+
+<style>
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-150px) scale(1.5);
+  }
+}
+</style>
+
+</body>
+</html>
